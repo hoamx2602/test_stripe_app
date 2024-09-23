@@ -13,9 +13,7 @@
 
 // The library needs to be configured with your account's secret key.
 // Ensure the key is kept out of any version control system you might be using.
-const stripe = require("stripe")(
-  "sk_test_51Q0EJJLIMEwBaev46MPBjU4XTiedyVCZF4QxuJjWgWXBvH3nVvpccxz8uZghY1DWwXqUQXfVCTHDRq1Spzs49QdY00UUkPJhvx"
-);
+const stripe = require("stripe")("sk_test_51Q0EJJLIMEwBaev46MPBjU4XTiedyVCZF4QxuJjWgWXBvH3nVvpccxz8uZghY1DWwXqUQXfVCTHDRq1Spzs49QdY00UUkPJhvx");
 const express = require("express");
 const app = express();
 
@@ -53,5 +51,9 @@ app.post(
     response.send();
   }
 );
+
+app.get('/', (req, res) => {
+  res.send('Test stripe');
+});
 
 app.listen(5000, () => console.log("Running on port 5000"));
