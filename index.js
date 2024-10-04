@@ -16,12 +16,6 @@
 const stripe = require("stripe")("sk_test_51OuHVuLeQOZVMWCZWssnQP6V9DkFiJEZwohtMki6X40BX0GGfLLDwLQD6b1eQUfnd5psB3tSSYDTf9SaM7h8KfvM00hWJAYjYM");
 const express = require("express");
 const app = express();
-const bodyParser = require('body-parser')
-
-app.use(bodyParser.urlencoded({ extended: false }))
-
-// parse application/json
-app.use(bodyParser.json())
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
 const endpointSecret =
