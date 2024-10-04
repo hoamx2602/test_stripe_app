@@ -51,7 +51,7 @@ app.post(
     response.send({
       event,
       headers: request.headers,
-      account_id: request.body.event,
+      account_id: request.body
     });
   }
 );
