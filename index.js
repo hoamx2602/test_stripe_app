@@ -50,7 +50,8 @@ app.post(
     // Return a 200 response to acknowledge receipt of the event
     response.send({
       event,
-      headers: request.headers
+      headers: request.headers,
+      account_id: request.body.event,
     });
   }
 );
