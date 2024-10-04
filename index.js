@@ -13,13 +13,13 @@
 
 // The library needs to be configured with your account's secret key.
 // Ensure the key is kept out of any version control system you might be using.
-const stripe = require("stripe")("sk_test_51Q0EJJLIMEwBaev46MPBjU4XTiedyVCZF4QxuJjWgWXBvH3nVvpccxz8uZghY1DWwXqUQXfVCTHDRq1Spzs49QdY00UUkPJhvx");
+const stripe = require("stripe")("sk_test_51OuHVuLeQOZVMWCZWssnQP6V9DkFiJEZwohtMki6X40BX0GGfLLDwLQD6b1eQUfnd5psB3tSSYDTf9SaM7h8KfvM00hWJAYjYM");
 const express = require("express");
 const app = express();
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
 const endpointSecret =
-  "whsec_QqjJGS7EuV6SLI0vP1hWpnMRnGMUyKGA";
+  "whsec_P5WR3AOFnOqtppUCz6y0eHpvdiG7WAIv";
 
 app.post(
   "/webhook",
