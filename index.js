@@ -13,7 +13,7 @@
 
 // The library needs to be configured with your account's secret key.
 // Ensure the key is kept out of any version control system you might be using.
-const stripe = require("stripe")("sk_test_51OuHVuLeQOZVMWCZWssnQP6V9DkFiJEZwohtMki6X40BX0GGfLLDwLQD6b1eQUfnd5psB3tSSYDTf9SaM7h8KfvM00hWJAYjYM");
+const stripe = require("stripe");
 const express = require("express");
 const app = express();
 
@@ -24,17 +24,24 @@ const endpointSecret =
 app.post(
   "/webhook",
   express.raw({ type: "application/json" }),
-  (request, response) => {
+  async (request, response) => {
     const sig = request.headers["stripe-signature"];
 
     let event;
+    const mainStripe = stripe("sk_test_51OuHVuLeQOZVMWCZWssnQP6V9DkFiJEZwohtMki6X40BX0GGfLLDwLQD6b1eQUfnd5psB3tSSYDTf9SaM7h8KfvM00hWJAYjYM");
 
     try {
-      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+      event = mainStripe.webhooks.constructEvent(request.body, sig, endpointSecret);
     } catch (err) {
       response.status(400).send(`Webhook Error: ${err.message}`);
       return;
     }
+
+
+    const connectedAccountAccessToken = 'sk_test_51Q4gTvLJk4G5qut4ECCWZvFB9RsTlv2ZfzghnX5FPQDTimwnWOEvhr4x3ibfqzfh5lsBeKXVBismqUHf8J7tyuq600dKD9CeI7';
+    const connectStripe = stripe(connectedAccountAccessToken);
+
+    const recipient = await connectStripe.stripe.customers.retrieve(event.data.customer);
 
     // Handle the event
     switch (event.type) {
@@ -51,7 +58,8 @@ app.post(
     response.send({
       event,
       headers: request.headers,
-      account_id: request.body
+      account_id: request.body,
+      recipient
     });
   }
 );
